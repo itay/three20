@@ -393,6 +393,36 @@ static const NSInteger kMaxBadgeNumber = 99;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+@implementation TTTabButtonBar
+
+- (CGSize)layoutTabs {
+	CGFloat totalWidth = self.width;
+	CGFloat tabCount = self.tabViews.count;
+	
+	CGFloat tabWidth = totalWidth / tabCount;
+	CGFloat tabHeight = self.height;
+	
+	CGFloat x = 0;
+	for(int i = 0; i < tabCount; i++) {
+		TTTab* tab = [self.tabViews objectAtIndex:i];
+		
+		tab.frame = CGRectMake(x, 0, tabWidth, tabHeight);
+		
+		x += tabWidth;
+	}
+	
+	return self.frame.size;
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	[self layoutTabs];
+}
+
+@end
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 @implementation TTTab
 
 @synthesize tabItem = _tabItem;
